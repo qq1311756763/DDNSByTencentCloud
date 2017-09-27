@@ -9,6 +9,7 @@ import java.io.*;
 import java.net.*;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import org.apache.commons.codec.binary.Base64;
 import java.util.Scanner;
 
 
@@ -34,21 +35,30 @@ public class Main {
                     String gitStr = "";
                     gitStr += "POSTcns.api.qcloud.com/v2/index.php?";
                     String gitStr1 ="Action=RecordModify&Nonce="+ (int) (Math.random() * 90000 + 10000);
+
+                    //String gitStr1 = "Action=RecordModify&Nonce="+"12345";
+
                     gitStr1 += "&Region=&SecretId=AKIDMelgUBR7JKBqW6OimgUOCpGVkrnXqE7o&SignatureMethod=HmacSHA256&Timestamp=";
                     gitStr1 += (long) System.currentTimeMillis() / 1000;
-                    gitStr1 += "&domain=gitdraw.cn&recordId=321515145&recordLine=默认&recordType=A&subDomain=test&value=" + myIP;
+
+                    //gitStr1 += "1506502810";
+
+                    gitStr1 += "&domain=gitdraw.cn&recordId=321515145&recordLine=默认&recordType=A&subDomain=test&value=" + getIP();
 
                     gitStr+=gitStr1;
 
                     System.out.println(gitStr);
 
-                    String key = new sun.misc.BASE64Encoder().encode(HMACSHA256(gitStr.getBytes(), "uhJcWFn9OXVOCpIZebP6KOGyXzTbdZVW".getBytes()));
+                    //String key = new sun.misc.BASE64Encoder().encode(HMACSHA256(gitStr.getBytes(), "uhJcWFn9OXVOCpIZebP6KOGyXzTbdZVW".getBytes()));
+                    String key = encodeBase64(HMACSHA256(gitStr.getBytes(), "uhJcWFn9OXVOCpIZebP6KOGyXzTbdZVW".getBytes()));
+                    //String key = sha256_HMAC(gitStr,"uhJcWFn9OXVOCpIZebP6KOGyXzTbdZVW");
+                    //String key = new sun.misc.BASE64Encoder().encode(HMACSHA256("POSTcns.api.qcloud.com/v2/index.php?Action=RecordModify&Nonce=27537&Region=&SecretId=AKIDMelgUBR7JKBqW6OimgUOCpGVkrnXqE7o&SignatureMethod=HmacSHA256&Timestamp=1506502371&domain=gitdraw.cn&recordId=321515145&recordLine=默认&recordType=A&subDomain=test&value=114.114.114.114".getBytes(), "uhJcWFn9OXVOCpIZebP6KOGyXzTbdZVW".getBytes()));
 
                     try {
                         key = URLEncoder.encode(key, "UTF-8");
                         System.out.println(key);
                         gitStr1+="&Signature="+key;
-                        String rt = sendPost("https://cns.api.qcloud.com/v2/index.php?",gitStr1);
+                        String rt = sendPost("https://cns.api.qcloud.com/v2/index.php",gitStr1);
                         System.out.println(rt);
 
                     } catch (UnsupportedEncodingException e) {
@@ -286,6 +296,14 @@ public class Main {
     }
 
     //=========================
+
+
+
+    public static String encodeBase64(byte[] str)
+    {
+        byte[] res = Base64.encodeBase64(str);
+        return new String(res);
+    }
 }
 
 

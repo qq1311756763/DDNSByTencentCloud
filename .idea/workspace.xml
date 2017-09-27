@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="getIP2DNS:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="62fd2e76-2b9c-4719-8ed6-bc5a9a070f5c" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -15,8 +20,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/cn/joinv/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="307">
-              <caret line="50" column="95" lean-forward="false" selection-start-line="50" selection-start-column="95" selection-end-line="50" selection-end-column="95" />
+            <state relative-caret-position="463">
+              <caret line="52" column="30" lean-forward="false" selection-start-line="52" selection-start-column="27" selection-end-line="52" selection-end-column="30" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -86,20 +91,7 @@
             <path>
               <item name="getIP2DNS" type="b2602c69:ProjectViewProjectNode" />
               <item name="getIP2DNS" type="462c0819:PsiDirectoryNode" />
-              <item name="out" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="getIP2DNS" type="b2602c69:ProjectViewProjectNode" />
-              <item name="getIP2DNS" type="462c0819:PsiDirectoryNode" />
-              <item name="out" type="462c0819:PsiDirectoryNode" />
-              <item name="production" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="getIP2DNS" type="b2602c69:ProjectViewProjectNode" />
-              <item name="getIP2DNS" type="462c0819:PsiDirectoryNode" />
-              <item name="out" type="462c0819:PsiDirectoryNode" />
-              <item name="production" type="462c0819:PsiDirectoryNode" />
-              <item name="getIP2DNS" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="getIP2DNS" type="b2602c69:ProjectViewProjectNode" />
@@ -135,7 +127,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/out" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/commons-codec-1.8.jar!/" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.1529948" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -266,12 +258,12 @@
       <workItem from="1506068990453" duration="5073000" />
       <workItem from="1506302924331" duration="841000" />
       <workItem from="1506408988408" duration="7436000" />
-      <workItem from="1506481589203" duration="9923000" />
+      <workItem from="1506481589203" duration="17489000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26388000" />
+    <option name="totallyTimeSpent" value="33954000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -367,10 +359,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/META-INF/MANIFEST.MF">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/cn/joinv/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="50" column="95" lean-forward="false" selection-start-line="50" selection-start-column="95" selection-end-line="50" selection-end-column="95" />
+        <state relative-caret-position="463">
+          <caret line="52" column="30" lean-forward="false" selection-start-line="52" selection-start-column="27" selection-end-line="52" selection-end-column="30" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
