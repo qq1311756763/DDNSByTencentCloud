@@ -5,59 +5,102 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
+import java.io.*;
+import java.net.*;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Scanner;
 
 
 public class Main {
     public static void main(String[] args) {
 
-        /*for(int i = 0; i < 4; i++){
-            System.out.println("第" + (i + 1) + "位随机数为：" + );
+        System.out.println("Please choose the work mod:");
+        System.out.println("1.DDNSClient   2.ReturnIP");
+        Scanner sc=new Scanner(System.in);
+        String choose = sc.next();
+        if(choose.equals("1"))//DDNSClient
+        {
+            String gitStr ="";
+            gitStr+="POSTcns.api.qcloud.com/v2/index.php?Action=RecordModify&Nonce=";
+            gitStr+=(int)(Math.random()*90000+10000);
+            gitStr+="&Region=&SecretId=AKIDMelgUBR7JKBqW6OimgUOCpGVkrnXqE7o&SignatureMethod=HmacSHA256&Timestamp=";
+            gitStr+=(long)System.currentTimeMillis()/1000;
+            gitStr+="&domain=gitdraw.cn&recordId=321515145&recordLine=默认&recordType=A&subDomain=test&value="+getIPbyWeb();
+
+            System.out.println(gitStr);
+
+            String key = new sun.misc.BASE64Encoder().encode(HMACSHA256(gitStr.getBytes(),"uhJcWFn9OXVOCpIZebP6KOGyXzTbdZVW".getBytes()));
+
+
+            try {
+                key = URLEncoder.encode(key, "UTF-8");
+                System.out.println(key);
+            } catch (UnsupportedEncodingException e) {
+                System.out.println(e.toString());
+            }
         }
-*/
+        else if (choose.equals("2"))//返回访问者的ip
+        {
+            ServerSocket ss;
+            Socket socket;
+            BufferedReader in;
+            PrintWriter out;
+            try
+            {
+                ss = new ServerSocket(10000);
 
-        //(int)(Math.random()*90000+10000)
-        //System.currentTimeMillis()
+                System.out.println("The server is waiting your input...");
 
-        /*String a =new sun.misc.BASE64Encoder().encode(HMACSHA256("GETcvm.api.qcloud.com/v2/index.php?Action=DescribeInstances&InstanceIds.0=ins-09dx96dg&Nonce=11886&Region=ap-guangzhou&SecretId=AKIDz8krbsJ5yKBZQpn74WFkmLPx3gnPhESA&SignatureMethod=HmacSHA256&Timestamp=1465185768".getBytes(),"Gu5t9xGARNpq86cd98joQYCN3Cozk1qA".getBytes()));
-        System.out.println(a);*/
+                while(true)
+                {
+                    socket = ss.accept();
 
-        //String gitStr = "POSTcns.api.qcloud.com/v2/index.php?Action=RecordModify&Nonce=279225849&Region=&SecretId=AKIDMelgUBR7JKBqW6OimgUOCpGVkrnXqE7o&SignatureMethod=HmacSHA256&Timestamp=1506409089";
-        //String gitStr ="POSTcns.api.qcloud.com/v2/index.php?Action=RecordModify&Nonce=73697&Region=&SecretId=AKIDMelgUBR7JKBqW6OimgUOCpGVkrnXqE7o&SignatureMethod=HmacSHA256&Timestamp=1506416650&domain=gitdraw.cn&recordId=321515145&recordLine=默认&recordType=A&subDomain=test&value=114.114.114.114";
-        /*gitStr+="POSTcns.api.qcloud.com/v2/index.php?Action=RecordModify&Nonce=";*/
+                    System.out.println(socket.getRemoteSocketAddress());
 
-        String gitStr ="";
-        gitStr+="POSTcns.api.qcloud.com/v2/index.php?Action=RecordModify&Nonce=";
-        gitStr+=(int)(Math.random()*90000+10000);
-        gitStr+="&Region=&SecretId=AKIDMelgUBR7JKBqW6OimgUOCpGVkrnXqE7o&SignatureMethod=HmacSHA256&Timestamp=";
-        gitStr+=(long)System.currentTimeMillis()/1000;
-        gitStr+="&domain=gitdraw.cn&recordId=321515145&recordLine=默认&recordType=A&subDomain=test&value="+getIP();
+                    in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                    out = new PrintWriter(socket.getOutputStream(), true);
+                    String line = in.readLine();
 
-        System.out.println(gitStr);
+                    if(line.equalsIgnoreCase("quit") || line.equalsIgnoreCase("exit")) {
+                        System.out.println("server exit");
+                        break;
+                    }
+                    else if(line.equals("getIP")) {
+                        String tmp = socket.getRemoteSocketAddress().toString();
+                        String[] tmps = tmp.split("/");
+                        tmp = tmps[1];
+                        String[] tmps1 = tmp.split(":");
+                        String usrIP = tmps1[0];
+                        out.println(usrIP);
+                        out.flush();
+                    }
 
-        String key = new sun.misc.BASE64Encoder().encode(HMACSHA256(gitStr.getBytes(),"uhJcWFn9OXVOCpIZebP6KOGyXzTbdZVW".getBytes()));
+
+                    System.out.println("you input is : " + line);
+
+                    out.close();
+                    in.close();
+                    socket.close();
 
 
-        try {
-            key = URLEncoder.encode(key, "UTF-8");
-            System.out.println(key);
-        } catch (UnsupportedEncodingException e) {
-            System.out.println(e.toString());
+                }
+
+                ss.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
       }
 
 
 
-    /*通过互联网IP查询网站获取本机公网IP 2017年9月21日*/
-    public static String getIP()
+    /*
+    通过互联网IP查询网站获取本机公网IP 2017/9/21
+    因为互联网免费ip查询网站地址经常改变，该方法不一定一直可用，可自行根据不同的网页尝试修改
+    */
+    public static String getIPbyWeb()
     {
         String a = null;
         try {
