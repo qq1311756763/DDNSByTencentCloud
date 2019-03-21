@@ -36,9 +36,8 @@ public class Main {
                     gitStr += "POSTcns.api.qcloud.com/v2/index.php?";
                     String gitStr1 ="Action=RecordModify&Nonce="+ (int) (Math.random() * 90000 + 10000);
 
-                    //String gitStr1 = "Action=RecordModify&Nonce="+"12345";
-
-                    gitStr1 += "&Region=&SecretId=AKIDMelgUBR7JKBqW6OimgUOCpGVkrnXqE7o&SignatureMethod=HmacSHA256&Timestamp=";
+                   
+                    gitStr1 += "&Region=&SecretId=AKIDMel******(SecretId)*******XqE7o&SignatureMethod=HmacSHA256&Timestamp=";
                     gitStr1 += (long) System.currentTimeMillis() / 1000;
 
                     //gitStr1 += "1506502810";
@@ -49,11 +48,9 @@ public class Main {
 
                     System.out.println(gitStr);
 
-                    //String key = new sun.misc.BASE64Encoder().encode(HMACSHA256(gitStr.getBytes(), "uhJcWFn9OXVOCpIZebP6KOGyXzTbdZVW".getBytes()));
-                    String key = encodeBase64(HMACSHA256(gitStr.getBytes(), "uhJcWFn9OXVOCpIZebP6KOGyXzTbdZVW".getBytes()));
-                    //String key = sha256_HMAC(gitStr,"uhJcWFn9OXVOCpIZebP6KOGyXzTbdZVW");
-                    //String key = new sun.misc.BASE64Encoder().encode(HMACSHA256("POSTcns.api.qcloud.com/v2/index.php?Action=RecordModify&Nonce=27537&Region=&SecretId=AKIDMelgUBR7JKBqW6OimgUOCpGVkrnXqE7o&SignatureMethod=HmacSHA256&Timestamp=1506502371&domain=gitdraw.cn&recordId=321515145&recordLine=默认&recordType=A&subDomain=test&value=114.114.114.114".getBytes(), "uhJcWFn9OXVOCpIZebP6KOGyXzTbdZVW".getBytes()));
-
+                   
+                    String key = encodeBase64(HMACSHA256(gitStr.getBytes(), "uhJcWF**********XzTbdZVW".getBytes()));
+                    
                     try {
                         key = URLEncoder.encode(key, "UTF-8");
                         System.out.println(key);
